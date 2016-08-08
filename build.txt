@@ -1,0 +1,12 @@
+﻿displayName=Second Hotbar
+author=Alana
+version=1.0.0
+dllReferences=
+modReferences=
+noCompile=false
+homepage=
+hideCode=false
+hideResources=false
+includeSource=true
+buildIgnore=*.csproj, *.user, obj\*, bin\*, .vs\*, *.md, .git*
+includePDB=true
