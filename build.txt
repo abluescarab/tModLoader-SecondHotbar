@@ -1,10 +1,10 @@
 ﻿displayName=Second Hotbar
-author=Alana
+author=abluescarab
 version=1.0.0
 dllReferences=
 modReferences=
 noCompile=false
-homepage=
+homepage=https://github.com/abluescarab/tModLoader-SecondHotbar
 hideCode=false
 hideResources=false
 includeSource=true
