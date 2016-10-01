@@ -18,4 +18,7 @@ Based in part on Solo-Ion's Hotbar Swapper, Second Hotbar is a mod that (what el
 * jopojelly for his SaveCustomData/ReadCustomData code for custom slots
 
 [Changelog]
+v1.0.1  2016-10-01
+* Compiled for Terraria 1.3.3.2
+
 v1.0.0  2016-08-07
