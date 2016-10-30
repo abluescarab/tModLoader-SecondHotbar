@@ -157,7 +157,7 @@ namespace SecondHotbar {
             if(Main.playerInventory) {
                 float slotW = Main.inventoryBackTexture.Width * Main.inventoryScale;
                 float offset = 5f * Main.inventoryScale;
-                float slotX = 20f + (560f * Main.inventoryScale);
+                float slotX = 20f + (800f * Main.inventoryScale);
                 float slotY = 20f;
 
                 foreach(UIItemSlot slot in slots) {
