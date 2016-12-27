@@ -26,23 +26,25 @@ namespace SecondHotbar {
 
             RegisterHotKey(changeKey.Name, changeKey.DefaultKey.ToString());
             RegisterHotKey(swapItemKey.Name, swapItemKey.DefaultKey.ToString());
+
+            AddGlobalItem("GlobalHotbarItem", new GlobalHotbarItem());
         }
 
         public override void HotKeyPressed(string name) {
             if(PlayerInput.Triggers.JustPressed.KeyStatus[GetTriggerName(this, name)]) {
                 if(name.Equals(changeKey.Name)) {
-                    MPlayer player = Main.player[Main.myPlayer].GetModPlayer<MPlayer>(this);
+                    SecondHotbarPlayer player = Main.player[Main.myPlayer].GetModPlayer<SecondHotbarPlayer>(this);
                     player.SwapHotbars();
                 }
             }
         }
 
         public override void PostDrawInterface(SpriteBatch spriteBatch) {
-            MPlayer player = Main.player[Main.myPlayer].GetModPlayer<MPlayer>(this);
+            SecondHotbarPlayer player = Main.player[Main.myPlayer].GetModPlayer<SecondHotbarPlayer>(this);
             player.Draw(spriteBatch);
             base.PostDrawInterface(spriteBatch);
         }
-
+        
         public static string GetTriggerName(Mod mod, string name) {
             return mod.Name + ": " + name;
         }

@@ -49,33 +49,35 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GlobalHotbarItem.cs" />
     <Compile Include="HotKey.cs" />
-    <Compile Include="MPlayer.cs" />
+    <Compile Include="SecondHotbarPlayer.cs" />
     <Compile Include="SecondHotbar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI\BaseTextureDrawing.cs" />
-    <Compile Include="UI\UIButton.cs" />
-    <Compile Include="UI\UIItemSlot.cs" />
-    <Compile Include="UI\UILabel.cs" />
-    <Compile Include="UI\UIObject.cs" />
-    <Compile Include="UI\UIPanel.cs" />
-    <Compile Include="UI\UIParameters.cs" />
-    <Compile Include="UI\UITextBox.cs" />
-    <Compile Include="UI\UIWindows\Template.cs" />
+    <Compile Include="TerraUI\Enums\Contexts.cs" />
+    <Compile Include="TerraUI\Enums\MouseButtons.cs" />
+    <Compile Include="TerraUI\Enums\Sounds.cs" />
+    <Compile Include="TerraUI\Objects\UIItemSlot.cs" />
+    <Compile Include="TerraUI\Objects\UIObject.cs" />
+    <Compile Include="TerraUI\Utilities\BaseTextureDrawing.cs" />
+    <Compile Include="TerraUI\Utilities\Events.cs" />
+    <Compile Include="TerraUI\Utilities\KeyboardUtils.cs" />
+    <Compile Include="TerraUI\Utilities\MouseUtils.cs" />
+    <Compile Include="TerraUI\Utilities\UIUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="build.txt" />
     <Content Include="description.txt" />
-    <Content Include="Textures\1x1.png" />
-    <Content Include="Textures\Background.png" />
-    <Content Include="Textures\BackgroundSolid.png" />
-    <Content Include="Textures\Buttons\Cross.png" />
-    <Content Include="Textures\Buttons\Enter.png" />
-    <Content Include="Textures\Buttons\Integrate.png" />
-    <Content Include="Textures\Corner.png" />
-    <Content Include="Textures\CornerSolid.png" />
-    <Content Include="Textures\Side.png" />
-    <Content Include="Textures\SideSolid.png" />
+    <Content Include="TerraUI\Textures\1x1.png" />
+    <Content Include="TerraUI\Textures\Background.png" />
+    <Content Include="TerraUI\Textures\BackgroundSolid.png" />
+    <Content Include="TerraUI\Textures\Buttons\Cross.png" />
+    <Content Include="TerraUI\Textures\Buttons\Enter.png" />
+    <Content Include="TerraUI\Textures\Buttons\Integrate.png" />
+    <Content Include="TerraUI\Textures\Corner.png" />
+    <Content Include="TerraUI\Textures\CornerSolid.png" />
+    <Content Include="TerraUI\Textures\Side.png" />
+    <Content Include="TerraUI\Textures\SideSolid.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
