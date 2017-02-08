@@ -18,7 +18,7 @@ namespace SecondHotbar {
                 int stack = slot.Item.stack;
                 
                 if((slot.Item.stack + item.stack) >= item.maxStack) {
-                    item.stack -= (999 - slot.Item.stack);
+                    item.stack -= (item.maxStack - slot.Item.stack);
                     slot.Item.stack = item.maxStack;
                 }
                 else {
