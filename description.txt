@@ -16,8 +16,12 @@ Based in part on Solo-Ion's Hotbar Swapper, Second Hotbar is a mod that (what el
 [Credits]
 * Solo-Ion for his original Hotbar Swapper mod
 * jopojelly for his SaveCustomData/ReadCustomData code for custom slots
+* rsw0x for the fix in v1.0.3
 
 [Changelog]
+v1.0.3  2017-02-08
+* Fix: duplicating items on pickup
+
 v1.0.2  2016-12-27
 * Fix: pickups are sorted correctly into the hotbar
 * Fix: compiled for tModLoader v0.9.0.3

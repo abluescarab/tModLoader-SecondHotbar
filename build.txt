@@ -1,6 +1,6 @@
 ﻿displayName=Second Hotbar
 author=abluescarab
-version=1.0.2
+version=1.0.3
 dllReferences=
 modReferences=
 noCompile=false
