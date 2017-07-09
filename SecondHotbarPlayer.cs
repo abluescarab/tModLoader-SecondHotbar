@@ -146,7 +146,7 @@ namespace SecondHotbar {
 
         public bool IsInHotbar(Item item, out UIItemSlot slot) {
             foreach(UIItemSlot s in slots) {
-                if(item.name.Equals(s.Item.name)) {
+                if(item.Name.Equals(s.Item.Name)) {
                     slot = s;
                     return true;
                 }
