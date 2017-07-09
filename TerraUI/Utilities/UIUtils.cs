@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Terraria;
@@ -25,7 +26,7 @@ namespace TerraUI.Utilities {
         /// <returns>Texture2D</returns>
         public static Texture2D GetTexture(string texture) {
             string tex = "";
-            string subdir = Subdirectory.Replace(@"\", "/");
+            string subdir = (string.IsNullOrEmpty(Subdirectory) ? "" : Subdirectory.Replace(@"\", "/"));
 
             if(!string.IsNullOrWhiteSpace(subdir)) {
                 tex += subdir;
@@ -39,7 +40,7 @@ namespace TerraUI.Utilities {
 
             return Mod.GetTexture(tex);
         }
-
+        
         /// <summary>
         /// Play a game sound.
         /// </summary>
@@ -128,28 +129,53 @@ namespace TerraUI.Utilities {
         public static string GetHoverText(Contexts context) {
             switch(context) {
                 case Contexts.EquipAccessory:
-                    return Lang.inter[9];
+                    return Lang.inter[9].Value;
                 case Contexts.EquipAccessoryVanity:
-                    return Lang.inter[11] + " " + Lang.inter[9];
+                    return Lang.inter[11].Value + " " + Lang.inter[9].Value;
                 case Contexts.EquipDye:
-                    return Lang.inter[57];
+                    return Lang.inter[57].Value;
                 case Contexts.EquipGrapple:
-                    return Lang.inter[90];
+                    return Lang.inter[90].Value;
                 case Contexts.EquipLight:
-                    return Lang.inter[94];
+                    return Lang.inter[94].Value;
                 case Contexts.EquipMinecart:
-                    return Lang.inter[93];
+                    return Lang.inter[93].Value;
                 case Contexts.EquipMount:
-                    return Lang.inter[91];
+                    return Lang.inter[91].Value;
                 case Contexts.EquipPet:
-                    return Lang.inter[92];
+                    return Lang.inter[92].Value;
                 case Contexts.InventoryAmmo:
-                    return Lang.inter[27];
+                    return Lang.inter[27].Value;
                 case Contexts.InventoryCoin:
-                    return Lang.inter[26];
+                    return Lang.inter[26].Value;
             }
 
             return string.Empty;
+        }
+
+        /// <summary>
+        /// Clamp a specified value within certain parameters.
+        /// </summary>
+        /// <typeparam name="T">any comparable type</typeparam>
+        /// <param name="value">value to clamp</param>
+        /// <param name="min">minimum value</param>
+        /// <param name="max">maximum value</param>
+        /// <returns>clamped value</returns>
+        public static T Clamp<T>(T value, T min, T max) where T : IComparable {
+            if(max.CompareTo(min) < 0) {
+                throw new ArgumentException(string.Format("Maximum value is smaller than minimum value."));
+            }
+
+            int comparedMin = value.CompareTo(min);
+            int comparedMax = value.CompareTo(max);
+
+            if(comparedMin < 0) {
+                return min;
+            }
+            else if(comparedMax > 0) {
+                return max;
+            }
+            else return value;
         }
 
         /// <summary>

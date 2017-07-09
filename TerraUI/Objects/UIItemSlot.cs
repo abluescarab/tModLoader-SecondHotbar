@@ -101,6 +101,15 @@ namespace TerraUI.Objects {
             else if(Partner != null && (Item.stack > 0 || Partner.Item.stack > 0)) {
                 Swap(ref item, ref Partner.item);
             }
+            else if(Main.mouseItem.stack == 0 && Item.stack > 1) {
+                Main.mouseItem = Item.Clone();
+                Main.mouseItem.stack = 1;
+                Item.stack--;
+            }
+            else if(Main.mouseItem.type == Item.type) {
+                Main.mouseItem.stack++;
+                Item.stack--;
+            }
         }
 
         /// <summary>
