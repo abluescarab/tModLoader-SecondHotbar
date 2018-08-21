@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using TerraUI;
+using Terraria.UI;
 using TerraUI.Objects;
 using TerraUI.Utilities;
 
@@ -30,7 +30,7 @@ namespace SecondHotbar {
                 UIItemSlot slot = new UIItemSlot(
                     new Vector2(slotX, slotY),
                     size: (int)slotW,
-                    context: Contexts.InventoryItem,
+                    context: ItemSlot.Context.InventoryItem,
                     conditions: Slot_Conditions);
                 slots.Add(slot);
 
@@ -52,8 +52,6 @@ namespace SecondHotbar {
                     slot.Update();
                 }
             }
-
-            UIUtils.UpdateInput();
         }
 
         public void Draw(SpriteBatch spriteBatch) {
