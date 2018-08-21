@@ -11,10 +11,10 @@ namespace SecondHotbar {
         }
 
         public override bool OnPickup(Item item, Player player) {
-            SecondHotbarPlayer plr = player.GetModPlayer<SecondHotbarPlayer>(mod);
+            SecondHotbarPlayer modPlayer = player.GetModPlayer<SecondHotbarPlayer>(mod);
             UIItemSlot slot;
 
-            if(plr.IsInHotbar(item, out slot)) {
+            if(modPlayer.IsInHotbar(item, out slot)) {
                 int stack = slot.Item.stack;
                 
                 if((slot.Item.stack + item.stack) >= item.maxStack) {

@@ -3,17 +3,15 @@ using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.GameInput;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using Terraria.UI.Chat;
 using TerraUI;
 using TerraUI.Objects;
 using TerraUI.Utilities;
 
 namespace SecondHotbar {
     internal class SecondHotbarPlayer : ModPlayer {
-        private const string ITEM_PREFIX = "ITEM";
+        private const string ItemPrefix = "ITEM";
         private List<UIItemSlot> slots;
 
         public override bool Autoload(ref string name) {
@@ -40,7 +38,7 @@ namespace SecondHotbar {
             }
         }
 
-        private bool Slot_Conditions(Item item) {
+        private static bool Slot_Conditions(Item item) {
             if(item.stack > 0) {
                 return true;
             }
@@ -84,7 +82,7 @@ namespace SecondHotbar {
             TagCompound tags = new TagCompound();
 
             for(int i = 0; i < 10; i++) {
-                tags.Add(ITEM_PREFIX + (i + 1),
+                tags.Add(ItemPrefix + (i + 1),
                          ItemIO.Save(slots[i].Item));
             }
 
@@ -93,7 +91,7 @@ namespace SecondHotbar {
 
         public override void Load(TagCompound tag) {
             for(int i = 0; i < 10; i++) {
-                slots[i].Item = ItemIO.Load(tag.GetCompound(ITEM_PREFIX + (i + 1)));
+                slots[i].Item = ItemIO.Load(tag.GetCompound(ItemPrefix + (i + 1)));
             }
             base.Load(tag);
         }
