@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace TerraUI.Utilities {
-    public static class BaseTextureDrawing {
+    public static class DrawingUtils {
         public static void DrawRectangleBox(SpriteBatch spriteBatch, Color borderColour, Color backColour, Rectangle rect, int borderWidth) {
             Texture2D texture = UIUtils.GetTexture("1x1");
 

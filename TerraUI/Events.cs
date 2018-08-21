@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using TerraUI.Objects;
 
-namespace TerraUI.Utilities {
+namespace TerraUI {
     public delegate void UIEventHandler(UIObject sender);
     public delegate bool MouseClickEventHandler(UIObject sender, MouseButtonEventArgs e);
     public delegate void MouseButtonEventHandler(UIObject sender, MouseButtonEventArgs e);

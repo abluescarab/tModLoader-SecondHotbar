@@ -57,15 +57,23 @@
     <Compile Include="SecondHotbarPlayer.cs" />
     <Compile Include="SecondHotbar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TerraUI\Enums\Contexts.cs" />
-    <Compile Include="TerraUI\Enums\MouseButtons.cs" />
-    <Compile Include="TerraUI\Enums\Sounds.cs" />
+    <Compile Include="TerraUI\Events.cs" />
+    <Compile Include="TerraUI\ExampleWindow.cs" />
+    <Compile Include="TerraUI\MouseButtons.cs" />
+    <Compile Include="TerraUI\Objects\UIButton.cs" />
+    <Compile Include="TerraUI\Objects\UICheckBox.cs" />
     <Compile Include="TerraUI\Objects\UIItemSlot.cs" />
+    <Compile Include="TerraUI\Objects\UILabel.cs" />
+    <Compile Include="TerraUI\Objects\UINumberBox.cs" />
     <Compile Include="TerraUI\Objects\UIObject.cs" />
-    <Compile Include="TerraUI\Utilities\BaseTextureDrawing.cs" />
-    <Compile Include="TerraUI\Utilities\Events.cs" />
+    <Compile Include="TerraUI\Objects\UIObjectBordered.cs" />
+    <Compile Include="TerraUI\Objects\UIProgressBar.cs" />
+    <Compile Include="TerraUI\Objects\UITextBox.cs" />
+    <Compile Include="TerraUI\Panels\UIPanel.cs" />
+    <Compile Include="TerraUI\Utilities\DrawingUtils.cs" />
     <Compile Include="TerraUI\Utilities\KeyboardUtils.cs" />
     <Compile Include="TerraUI\Utilities\MouseUtils.cs" />
+    <Compile Include="TerraUI\Utilities\UIColors.cs" />
     <Compile Include="TerraUI\Utilities\UIUtils.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -79,8 +87,11 @@
     <Content Include="TerraUI\Textures\Buttons\Integrate.png" />
     <Content Include="TerraUI\Textures\Corner.png" />
     <Content Include="TerraUI\Textures\CornerSolid.png" />
+    <Content Include="TerraUI\Textures\DownArrow.png" />
     <Content Include="TerraUI\Textures\Side.png" />
     <Content Include="TerraUI\Textures\SideSolid.png" />
+    <Content Include="TerraUI\Textures\Tick.png" />
+    <Content Include="TerraUI\Textures\UpArrow.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
