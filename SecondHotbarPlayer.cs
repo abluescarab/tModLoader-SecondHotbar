@@ -48,44 +48,6 @@ namespace SecondHotbar {
             return false;
         }
 
-        public override bool PreItemCheck() {
-            if(PlayerInput.Triggers.Current.KeyStatus[SecondHotbar.GetTriggerName(
-                mod, SecondHotbar.swapItemKeyName)]) {
-                if(PlayerInput.Triggers.JustPressed.Hotbar1) {
-                    SwapItem(1);
-                }
-                else if(PlayerInput.Triggers.JustPressed.Hotbar2) {
-                    SwapItem(2);
-                }
-                else if(PlayerInput.Triggers.JustPressed.Hotbar3) {
-                    SwapItem(3);
-                }
-                else if(PlayerInput.Triggers.JustPressed.Hotbar4) {
-                    SwapItem(4);
-                }
-                else if(PlayerInput.Triggers.JustPressed.Hotbar5) {
-                    SwapItem(5);
-                }
-                else if(PlayerInput.Triggers.JustPressed.Hotbar6) {
-                    SwapItem(6);
-                }
-                else if(PlayerInput.Triggers.JustPressed.Hotbar7) {
-                    SwapItem(7);
-                }
-                else if(PlayerInput.Triggers.JustPressed.Hotbar8) {
-                    SwapItem(8);
-                }
-                else if(PlayerInput.Triggers.JustPressed.Hotbar9) {
-                    SwapItem(9);
-                }
-                else if(PlayerInput.Triggers.JustPressed.Hotbar10) {
-                    SwapItem(10);
-                }
-            }
-
-            return true;
-        }
-
         public override void PreUpdate() {
             if(Main.playerInventory) {
                 foreach(UIItemSlot slot in slots) {
