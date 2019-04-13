@@ -36,7 +36,7 @@ namespace SecondHotbar {
             if(changeKey.JustPressed) {
                 modPlayer.SwapHotbars();
             }
-            else if(swapItemKey.JustPressed) {
+            else if(swapItemKey.Current) {
                 if(PlayerInput.Triggers.JustPressed.Hotbar1) {
                     modPlayer.SwapItem(1);
                 }
