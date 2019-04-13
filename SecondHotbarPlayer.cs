@@ -14,10 +14,6 @@ namespace SecondHotbar {
         private const string ItemPrefix = "ITEM";
         private List<UIItemSlot> slots;
 
-        public override bool Autoload(ref string name) {
-            return true;
-        }
-
         public override void Initialize() {
             slots = new List<UIItemSlot>(10);
 
@@ -94,14 +90,6 @@ namespace SecondHotbar {
             base.Load(tag);
         }
 
-        public override void LoadLegacy(BinaryReader reader) {
-            ushort installFlag = reader.ReadUInt16();
-
-            if(installFlag == 0) {
-                ReadHotbarLegacy(slots, reader, true, false);
-            }
-        }
-
         public bool IsInHotbar(Item item, out UIItemSlot slot) {
             foreach(UIItemSlot s in slots) {
                 if(item.Name.Equals(s.Item.Name)) {
@@ -112,41 +100,6 @@ namespace SecondHotbar {
 
             slot = null;
             return false;
-        }
-
-        internal static bool WriteHotbarLegacy(List<UIItemSlot> itemSlots, BinaryWriter writer, bool writeStack = false, bool writeFavorite = false) {
-            ushort count = 0;
-            byte[] data;
-
-            using(MemoryStream stream = new MemoryStream()) {
-                using(BinaryWriter w = new BinaryWriter(stream)) {
-                    for(int i = 0; i < itemSlots.Count; i++) {
-                        w.Write((ushort)i);
-                        ItemIO.Send(itemSlots[i].Item, w, writeStack, writeFavorite);
-                        count++;
-                    }
-                }
-
-                data = stream.ToArray();
-            }
-
-            if(count > 0) {
-                writer.Write(count);
-                writer.Write(data);
-
-                return true;
-            }
-
-            return false;
-        }
-
-        internal static void ReadHotbarLegacy(List<UIItemSlot> itemSlots, BinaryReader reader, bool readStack = false, bool readFavorite = false) {
-            ushort count = reader.ReadUInt16();
-
-            for(int i = 0; i < count; i++) {
-                ushort index = reader.ReadUInt16();
-                ItemIO.Receive(itemSlots[i].Item, reader, readStack, readFavorite);
-            }
         }
     }
 }
