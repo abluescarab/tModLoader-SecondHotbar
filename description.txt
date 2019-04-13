@@ -12,6 +12,7 @@ Based in part on Solo-Ion's Hotbar Swapper, Second Hotbar is a mod that (what el
 
 [Known Issues]
 * Multi-colored items, such as gels, appear grey in the added slots
+* No tooltip on hover
 
 [Credits]
 * Solo-Ion for his original Hotbar Swapper mod
@@ -19,6 +20,9 @@ Based in part on Solo-Ion's Hotbar Swapper, Second Hotbar is a mod that (what el
 * rsw0x for the fix in v1.0.3
 
 [Changelog]
+v1.0.5  2019-04-13
+* Fixed swap single item hotkey
+
 v1.0.4  2017-07-09
 * Compiled for tModLoader v0.10.0.2
 
