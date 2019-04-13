@@ -10,6 +10,7 @@ Remove all items from the extra hotbar before updating/disabling this mod!
 
 ## Known Issues
 * Multi-colored items, such as gels, appear grey in the added slots
+* No tooltip on hover
 
 ## Credits
 * Solo-Ion for his original Hotbar Swapper mod
