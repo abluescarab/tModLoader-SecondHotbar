@@ -20,6 +20,9 @@ Based in part on Solo-Ion's Hotbar Swapper, Second Hotbar is a mod that (what el
 * rsw0x for the fix in v1.0.3
 
 [Changelog]
+v1.0.6  2019-08-17
+* Build for tModLoader v0.11.4
+
 v1.0.5  2019-04-13
 * Fixed swap single item hotkey
 
