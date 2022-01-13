@@ -1,32 +1,30 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using CustomSlot;
 using Terraria;
 using Terraria.ModLoader;
-using TerraUI.Objects;
 
 namespace SecondHotbar {
-    class GlobalHotbarItem : GlobalItem {
+    public class GlobalHotbarItem : GlobalItem {
         public override bool OnPickup(Item item, Player player) {
-            SecondHotbarPlayer modPlayer = player.GetModPlayer<SecondHotbarPlayer>(mod);
-            UIItemSlot slot;
+            SecondHotbarPlayer modPlayer = player.GetModPlayer<SecondHotbarPlayer>();
+            CustomItemSlot slot;
 
-            if(modPlayer.IsInHotbar(item, out slot)) {
-                int stack = slot.Item.stack;
+            if(!modPlayer.IsInHotbar(item, out slot)) return base.OnPickup(item, player;
 
-                if((slot.Item.stack + item.stack) >= item.maxStack) {
-                    item.stack -= (item.maxStack - slot.Item.stack);
-                    slot.Item.stack = item.maxStack;
-                }
-                else {
-                    slot.Item.stack += item.stack;
-                    item.stack = 0;
-                }
-
-                return true;
+            if((slot.Item.stack + item.stack) >= item.maxStack) {
+                item.stack -= (item.maxStack - slot.Item.stack);
+                slot.Item.stack = item.maxStack;
             }
             else {
-                return base.OnPickup(item, player);
+                slot.Item.stack += item.stack;
+                item.stack = 0;
             }
+
+            return true;
         }
     }
 }

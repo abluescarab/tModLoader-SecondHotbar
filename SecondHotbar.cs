@@ -1,83 +1,125 @@
-﻿/*
- * todo: update description.txt
- */
-
-using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using SecondHotbar.UI;
 using Terraria;
 using Terraria.GameInput;
 using Terraria.ModLoader;
+using Terraria.UI;
 
 namespace SecondHotbar {
-    public class SecondHotbar : Mod {
-        private const string ChangeKeyName = "Swap Hotbar";
-        private const string SwapItemKeyName = "Swap Item Modifier";
+	public class SecondHotbar : Mod {
+        private const string SwapHotbarKeyName = "Swap Hotbar";
+        private const string SwapItemModifierKeyName = "Swap Item Modifier";
 
-        private ModHotKey changeKey;
-        private ModHotKey swapItemKey;
+        private UserInterface secondHotbarInterface;
+        private ModHotKey swapHotbarKey;
+        private ModHotKey swapItemModifierKey;
+
+        public static SecondHotbarUI UI;
 
         public override void Load() {
-            Properties = new ModProperties() {
-                Autoload = true,
-                AutoloadBackgrounds = true,
-                AutoloadGores = true,
-                AutoloadSounds = true
-            };
+            swapHotbarKey = RegisterHotKey(SwapHotbarKeyName, Keys.Tab.ToString());
+            swapItemModifierKey = RegisterHotKey(SwapItemModifierKeyName, Keys.LeftAlt.ToString());
 
-            changeKey = RegisterHotKey(ChangeKeyName, Keys.Tab.ToString());
-            swapItemKey = RegisterHotKey(SwapItemKeyName, Keys.LeftAlt.ToString());
+            if(Main.dedServ) return;
 
-            AddGlobalItem("GlobalHotbarItem", new GlobalHotbarItem());
+            secondHotbarInterface = new UserInterface();
+            UI = new SecondHotbarUI();
+
+            UI.Activate();
+            secondHotbarInterface.SetState(UI);
+        }
+
+        public override void Unload() {
+            UI = null;
+        }
+
+        public override void UpdateUI(GameTime gameTime) {
+            if(UI.IsVisible)
+                secondHotbarInterface?.Update(gameTime);
+        }
+
+        public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers) {
+            int inventoryLayer = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
+
+            if(inventoryLayer != -1) {
+                layers.Insert(
+                    inventoryLayer,
+                    new LegacyGameInterfaceLayer(
+                        "Second Hotbar: Custom Slot UI",
+                        () => {
+                            if(UI.IsVisible)
+                                secondHotbarInterface.Draw(Main.spriteBatch, new GameTime());
+
+                            return true;
+                        },
+                        InterfaceScaleType.UI));
+            }
+        }
+
+        public override object Call(params object[] args) {
+            try {
+                string keyword = args[0] as string;
+
+                if(string.IsNullOrEmpty(keyword)) {
+                    return "Error: no command provided";
+                }
+
+                switch(keyword.ToLower()) {
+                    case "getitem":
+                        if(!(args[1] is int)) {
+                            return "Error: not a valid integer";
+                        }
+
+                        return UI.Slots[(int)args[1]].Item;
+                    default:
+                        return "Error: not a valid command";
+                }
+            }
+            catch {
+                return null;
+            }
         }
 
         public override void HotKeyPressed(string name) {
-            SecondHotbarPlayer modPlayer = Main.player[Main.myPlayer].GetModPlayer<SecondHotbarPlayer>(this);
+            SecondHotbarPlayer modPlayer = Main.player[Main.myPlayer].GetModPlayer<SecondHotbarPlayer>();
 
-            if(changeKey.JustPressed) {
+            if(swapHotbarKey.JustPressed) {
                 modPlayer.SwapHotbars();
             }
-            else if(swapItemKey.Current) {
+            else if(swapItemModifierKey.Current) {
                 if(PlayerInput.Triggers.JustPressed.Hotbar1) {
+                    modPlayer.SwapItem(0);
+                }
+                if(PlayerInput.Triggers.JustPressed.Hotbar2) {
                     modPlayer.SwapItem(1);
                 }
-                else if(PlayerInput.Triggers.JustPressed.Hotbar2) {
+                if(PlayerInput.Triggers.JustPressed.Hotbar3) {
                     modPlayer.SwapItem(2);
                 }
-                else if(PlayerInput.Triggers.JustPressed.Hotbar3) {
+                if(PlayerInput.Triggers.JustPressed.Hotbar4) {
                     modPlayer.SwapItem(3);
                 }
-                else if(PlayerInput.Triggers.JustPressed.Hotbar4) {
+                if(PlayerInput.Triggers.JustPressed.Hotbar5) {
                     modPlayer.SwapItem(4);
                 }
-                else if(PlayerInput.Triggers.JustPressed.Hotbar5) {
+                if(PlayerInput.Triggers.JustPressed.Hotbar6) {
                     modPlayer.SwapItem(5);
                 }
-                else if(PlayerInput.Triggers.JustPressed.Hotbar6) {
+                if(PlayerInput.Triggers.JustPressed.Hotbar7) {
                     modPlayer.SwapItem(6);
                 }
-                else if(PlayerInput.Triggers.JustPressed.Hotbar7) {
+                if(PlayerInput.Triggers.JustPressed.Hotbar8) {
                     modPlayer.SwapItem(7);
                 }
-                else if(PlayerInput.Triggers.JustPressed.Hotbar8) {
+                if(PlayerInput.Triggers.JustPressed.Hotbar9) {
                     modPlayer.SwapItem(8);
                 }
-                else if(PlayerInput.Triggers.JustPressed.Hotbar9) {
+                if(PlayerInput.Triggers.JustPressed.Hotbar10) {
                     modPlayer.SwapItem(9);
                 }
-                else if(PlayerInput.Triggers.JustPressed.Hotbar10) {
-                    modPlayer.SwapItem(10);
-                }
             }
-        }
-
-        public override void PostDrawInterface(SpriteBatch spriteBatch) {
-            SecondHotbarPlayer player = Main.player[Main.myPlayer].GetModPlayer<SecondHotbarPlayer>(this);
-            player.Draw(spriteBatch);
-            base.PostDrawInterface(spriteBatch);
-        }
-
-        public static string GetTriggerName(Mod mod, string name) {
-            return mod.Name + ": " + name;
         }
     }
 }

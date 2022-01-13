@@ -1,83 +1,67 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using CustomSlot;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using Terraria.UI;
-using TerraUI.Objects;
-using TerraUI.Utilities;
 
 namespace SecondHotbar {
-    internal class SecondHotbarPlayer : ModPlayer {
-        private const string ItemPrefix = "ITEM";
-        private List<UIItemSlot> slots;
+    public class SecondHotbarPlayer : ModPlayer {
+        private const string ItemTag = "Item";
+
+        public Item[] Items;
 
         public override void Initialize() {
-            slots = new List<UIItemSlot>(10);
-
-            float slotW = 52 * 0.85f;
-            float offset = 5f * 0.85f;
-            float slotX = 20f + 560f * 0.85f;
-            float slotY = 20f;
+            Items = new Item[10];
 
             for(int i = 0; i < 10; i++) {
-                UIItemSlot slot = new UIItemSlot(
-                    new Vector2(slotX, slotY),
-                    size: (int)slotW,
-                    context: ItemSlot.Context.InventoryItem,
-                    conditions: Slot_Conditions);
-                slots.Add(slot);
-
-                slotX += slotW + offset;
+                Items[i] = new Item();
+                Items[i].SetDefaults();
             }
         }
 
-        private static bool Slot_Conditions(Item item) {
-            if(item.stack > 0) {
-                return true;
-            }
+        public override void OnEnterWorld(Player player) {
+            SecondHotbar.UI.Slots[0].ItemPlaced += (sender, e) => {
 
-            return false;
-        }
-
-        public override void PreUpdate() {
-            if(Main.playerInventory) {
-                foreach(UIItemSlot slot in slots) {
-                    slot.Update();
-                }
-            }
-        }
-
-        public void Draw(SpriteBatch spriteBatch) {
-            if(Main.playerInventory) {
-                foreach(UIItemSlot slot in slots) {
-                    slot.Draw(spriteBatch);
-                }
-            }
+            };
         }
 
         public void SwapHotbars() {
             for(int i = 0; i < 10; i++) {
-                Item item = slots[i].Item;
-                UIUtils.SwitchItems(ref player.inventory[i], ref item);
-                slots[i].Item = item;
+                SwitchItems(ref player.inventory[i], ref Items[i]);
+                SecondHotbar.UI.Slots[i].Item = Items[i].Clone();
             }
         }
 
         public void SwapItem(int slot) {
-            Item item = slots[slot - 1].Item;
-            UIUtils.SwitchItems(ref player.inventory[slot - 1], ref item);
-            slots[slot - 1].Item = item;
+            if(slot <= 0 || slot > 9) return;
+
+            SwitchItems(ref player.inventory[slot], ref Items[slot]);
+            SecondHotbar.UI.Slots[slot].Item = Items[slot].Clone();
+        }
+
+        public bool IsInHotbar(Item item, out CustomItemSlot slot) {
+            foreach(CustomItemSlot s in SecondHotbar.UI.Slots) {
+                if(!item.Name.Equals(s.Item.Name)) continue;
+
+                slot = s;
+                return true;
+            }
+
+            slot = null;
+            return false;
         }
 
         public override TagCompound Save() {
             TagCompound tags = new TagCompound();
 
             for(int i = 0; i < 10; i++) {
-                tags.Add(ItemPrefix + (i + 1),
-                         ItemIO.Save(slots[i].Item));
+                tags.Add(ItemTag + i,
+                         ItemIO.Save(Items[i]));
             }
 
             return tags;
@@ -85,21 +69,35 @@ namespace SecondHotbar {
 
         public override void Load(TagCompound tag) {
             for(int i = 0; i < 10; i++) {
-                slots[i].Item = ItemIO.Load(tag.GetCompound(ItemPrefix + (i + 1)));
+                Items[i] = ItemIO.Load(tag.GetCompound(ItemTag + i));
+                SecondHotbar.UI.Slots[i].Item = Items[i].Clone();
             }
-            base.Load(tag);
         }
 
-        public bool IsInHotbar(Item item, out UIItemSlot slot) {
-            foreach(UIItemSlot s in slots) {
-                if(item.Name.Equals(s.Item.Name)) {
-                    slot = s;
-                    return true;
-                }
+        /// <summary>
+        /// Switch two items.
+        /// </summary>
+        /// <param name="item1">first item</param>
+        /// <param name="item2">second item</param>
+        public static void SwitchItems(ref Item item1, ref Item item2) {
+            if((item1.type == ItemID.None || item1.stack < 1) && (item2.type != ItemID.None || item2.stack > 0)) //if item2 is mouseitem, then if item slot is empty and item is picked up
+            {
+                item1 = item2;
+                item2 = new Item();
+                item2.SetDefaults();
             }
-
-            slot = null;
-            return false;
+            else if((item1.type != ItemID.None || item1.stack > 0) && (item2.type == ItemID.None || item2.stack < 1)) //if item2 is mouseitem, then if item slot is empty and item is picked up
+            {
+                item2 = item1;
+                item1 = new Item();
+                item1.SetDefaults();
+            }
+            else if((item1.type != ItemID.None || item1.stack > 0) && (item2.type != ItemID.None || item2.stack > 0)) //if item2 is mouseitem, then if item slot is empty and item is picked up
+            {
+                Item item3 = item2;
+                item2 = item1;
+                item1 = item3;
+            }
         }
     }
 }
