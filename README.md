@@ -14,4 +14,3 @@ Remove all items from the extra hotbar before updating/disabling this mod!
 
 ## Credits
 * Solo-Ion for his original Hotbar Swapper mod
-* jopojelly for his SaveCustomData/ReadCustomData code for custom slots

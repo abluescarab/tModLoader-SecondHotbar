@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CustomSlot;
+using SecondHotbar.UI;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -25,15 +26,25 @@ namespace SecondHotbar {
         }
 
         public override void OnEnterWorld(Player player) {
-            SecondHotbar.UI.Slots[0].ItemPlaced += (sender, e) => {
+            if(SecondHotbar.UI == null) return;
 
-            };
+            for(int i = 0; i < 10; i++) {
+                SecondHotbar.UI.Slots[i].SetItem(Items[i].Clone(), false);
+
+                SecondHotbar.UI.Slots[i].ItemChanged += (sender, e) => {
+                    CustomItemSlot slot = (CustomItemSlot)sender;
+
+                    if(int.TryParse(slot.Id.Replace(SecondHotbarUI.IdPrefix, ""), out int postfix)) {
+                        Items[postfix] = slot.Item.Clone();
+                    }
+                };
+            }
         }
 
         public void SwapHotbars() {
             for(int i = 0; i < 10; i++) {
                 SwitchItems(ref player.inventory[i], ref Items[i]);
-                SecondHotbar.UI.Slots[i].Item = Items[i].Clone();
+                SecondHotbar.UI.Slots[i].SetItem(Items[i].Clone());
             }
         }
 
@@ -41,7 +52,7 @@ namespace SecondHotbar {
             if(slot <= 0 || slot > 9) return;
 
             SwitchItems(ref player.inventory[slot], ref Items[slot]);
-            SecondHotbar.UI.Slots[slot].Item = Items[slot].Clone();
+            SecondHotbar.UI.Slots[slot].SetItem(Items[slot].Clone());
         }
 
         public bool IsInHotbar(Item item, out CustomItemSlot slot) {
@@ -60,8 +71,7 @@ namespace SecondHotbar {
             TagCompound tags = new TagCompound();
 
             for(int i = 0; i < 10; i++) {
-                tags.Add(ItemTag + i,
-                         ItemIO.Save(Items[i]));
+                tags.Add(ItemTag + i, ItemIO.Save(Items[i]));
             }
 
             return tags;
@@ -70,7 +80,6 @@ namespace SecondHotbar {
         public override void Load(TagCompound tag) {
             for(int i = 0; i < 10; i++) {
                 Items[i] = ItemIO.Load(tag.GetCompound(ItemTag + i));
-                SecondHotbar.UI.Slots[i].Item = Items[i].Clone();
             }
         }
 

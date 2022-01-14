@@ -11,9 +11,8 @@ namespace SecondHotbar {
     public class GlobalHotbarItem : GlobalItem {
         public override bool OnPickup(Item item, Player player) {
             SecondHotbarPlayer modPlayer = player.GetModPlayer<SecondHotbarPlayer>();
-            CustomItemSlot slot;
 
-            if(!modPlayer.IsInHotbar(item, out slot)) return base.OnPickup(item, player;
+            if(!modPlayer.IsInHotbar(item, out CustomItemSlot slot)) return base.OnPickup(item, player);
 
             if((slot.Item.stack + item.stack) >= item.maxStack) {
                 item.stack -= (item.maxStack - slot.Item.stack);

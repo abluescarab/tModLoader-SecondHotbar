@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,8 @@ namespace SecondHotbar.UI {
     public class SecondHotbarUI : UIState {
         private const float SlotScale = 0.85f;
         private const float SlotMargin = 5f;
+
+        public const string IdPrefix = "SecondHotbarSlot";
 
         public List<CustomItemSlot> Slots;
         public float CustomPanelX;
@@ -33,9 +36,11 @@ namespace SecondHotbar.UI {
             for(int i = 0; i < 10; i++) {
                 CustomItemSlot slot = new CustomItemSlot(ItemSlot.Context.HotbarItem, SlotScale) {
                     Left = new StyleDimension(slotX, 0),
-                    Top = new StyleDimension(slotY, 0)
+                    Top = new StyleDimension(slotY, 0),
+                    Id = IdPrefix + i
                 };
 
+                Slots.Add(slot);
                 Panel.Append(slot);
 
                 if(slotSize < 0.1f)
