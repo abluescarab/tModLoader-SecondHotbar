@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CustomSlot;
-using Microsoft.Xna.Framework;
+﻿using CustomSlot;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.UI;
 
@@ -36,8 +30,7 @@ namespace SecondHotbar.UI {
             for(int i = 0; i < 10; i++) {
                 CustomItemSlot slot = new CustomItemSlot(ItemSlot.Context.HotbarItem, SlotScale) {
                     Left = new StyleDimension(slotX, 0),
-                    Top = new StyleDimension(slotY, 0),
-                    Id = IdPrefix + i
+                    Top = new StyleDimension(slotY, 0)
                 };
 
                 Slots.Add(slot);
