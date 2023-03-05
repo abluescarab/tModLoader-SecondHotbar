@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CustomSlot;
+﻿using CustomSlot.UI;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -12,7 +7,8 @@ namespace SecondHotbar {
         public override bool OnPickup(Item item, Player player) {
             SecondHotbarPlayer modPlayer = player.GetModPlayer<SecondHotbarPlayer>();
 
-            if(!modPlayer.IsInHotbar(item, out CustomItemSlot slot)) return base.OnPickup(item, player);
+            if(!modPlayer.IsInHotbar(item, out CustomItemSlot slot)) 
+                return base.OnPickup(item, player);
 
             if((slot.Item.stack + item.stack) >= item.maxStack) {
                 item.stack -= (item.maxStack - slot.Item.stack);

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using Terraria.ModLoader.Config;
 
 namespace SecondHotbar {
@@ -30,19 +25,19 @@ namespace SecondHotbar {
         public bool ShowCustomLocationPanel;
 
         public override void OnChanged() {
-            if(SecondHotbar.UI == null) return;
+            if(SecondHotbarSystem.UI == null) return;
 
             if(lastLocation == Location.Custom && HotbarLocation != Location.Custom)
                 ShowCustomLocationPanel = false;
 
-            SecondHotbar.UI.Panel.Visible = ShowCustomLocationPanel;
-            SecondHotbar.UI.Panel.CanDrag = ShowCustomLocationPanel;
+            SecondHotbarSystem.UI.Panel.Visible = ShowCustomLocationPanel;
+            SecondHotbarSystem.UI.Panel.CanDrag = ShowCustomLocationPanel;
 
             if(ShowCustomLocationPanel)
                 HotbarLocation = Location.Custom;
 
             if(HotbarLocation == Location.Custom)
-                SecondHotbar.UI.MoveToCustomPosition();
+                SecondHotbarSystem.UI.MoveToCustomPosition();
 
             lastLocation = HotbarLocation;
         }
