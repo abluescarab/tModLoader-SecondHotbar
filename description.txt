@@ -1,5 +1,5 @@
 ﻿!!! WARNING !!!
-Remove all items from the extra hotbar before updating/disabling this mod!
+Remove all items from the extra hotbar before disabling this mod!
 
 ---
 
