@@ -20,6 +20,9 @@ Based in part on Solo-Ion's Hotbar Swapper, Second Hotbar is a mod that (what el
 * rsw0x for the fix in v1.0.3
 
 [Changelog]
+v1.1.2  2023-03-08
+* Changed warning about updating/disabling to just disabling
+
 v1.1.1  2023-03-05
 * Fix: item textures not loading on first run
 
